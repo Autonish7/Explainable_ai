@@ -1,0 +1,22 @@
+1. install uv
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+2. Go to project directory and initialize the directory
+uv init
+
+3. In the directory, we will have a folder "pyproject.toml" where in dependency, we will install packages
+
+4. to add a dependency we use
+uv add shap --link-mode=copy  ## OneDrive really doesn’t like hardlinks inside its synced folders
+uv add pandas seaborn scikit-learn matplotlib numpy
+uv add --dev ipykernel     # create a development group
+
+# Kill the venv completely
+rmdir .venv -Recurse -Force
+
+# Clean uv cache (so it doesn’t reuse partially-copied files)
+uv cache clean
+uv --no-cache add shap
+
+uv sync --> to create a venv folder same as toml file
+
